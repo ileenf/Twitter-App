@@ -12,6 +12,7 @@
 #import "LoginViewController.h"
 
 @interface TimelineViewController ()
+@property (strong, nonatomic) NSArray *arrayOfTweets;
 
 @end
 
@@ -20,19 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Get timeline
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
-        if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            NSLog(@"%@", tweets);
-//            for (NSDictionary *dictionary in tweets) {
-//                NSString *text = dictionary[@"text"];
-//                NSLog(@"%@", text);
-//            }
-        } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
-        }
-    }];
+    [self loadTweets];
+    
     
 }
 
@@ -47,6 +37,24 @@
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     appDelegate.window.rootViewController = loginViewController;
     [[APIManager shared] logout];
+}
+
+- (void)loadTweets {
+    
+    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+        if (tweets) {
+            NSLog(@"😎😎😎 Successfully loaded home timeline");
+            self.arrayOfTweets = tweets;
+            //NSLog(@"%@", self.arrayOfTweets);
+    //            for (NSDictionary *dictionary in tweets) {
+    //                NSString *text = dictionary[@"text"];
+    //                NSLog(@"%@", text);
+    //            }
+        } else {
+            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+        }
+    }];
+    
 }
 
 
