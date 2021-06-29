@@ -16,6 +16,7 @@
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -29,6 +30,11 @@
     self.tableView.rowHeight = 300;
     
     [self loadTweets];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    
+    [self.refreshControl addTarget:self action:@selector(loadTweets) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
     
     
 }
@@ -47,21 +53,26 @@
 }
 
 - (void)loadTweets {
-    
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
-        if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            self.arrayOfTweets = tweets;
-            [self.tableView reloadData];
-            //NSLog(@"%@", self.arrayOfTweets);
-    //            for (NSDictionary *dictionary in tweets) {
-    //                NSString *text = dictionary[@"text"];
-    //                NSLog(@"%@", text);
-    //            }
-        } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
-        }
-    }];
+                
+                [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+                    if (tweets) {
+                        NSLog(@"😎😎😎 Successfully loaded home timeline");
+                        self.arrayOfTweets = tweets;
+                        [self.tableView reloadData];
+                        
+                        //NSLog(@"%@", self.arrayOfTweets);
+                //            for (NSDictionary *dictionary in tweets) {
+                //                NSString *text = dictionary[@"text"];
+                //                NSLog(@"%@", text);
+                //            }
+                    } else {
+                        NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+                    }
+                    [self.refreshControl endRefreshing];
+                    
+                }];
+        
+  
     
 }
 
@@ -80,7 +91,6 @@
     cell.screenName.text = user.screenName;
     cell.tweetDate.text = tweet.createdAtString;
     cell.tweetText.text = tweet.text;
-    //cell.replyCount.text =
     cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     cell.likeCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     
