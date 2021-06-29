@@ -19,6 +19,19 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    
+
+    
+    
 }
+
+// Did Tap Favorite
+
+
+
+
+//Unfavorited
+//Retweet
+
 
 @end
