@@ -9,6 +9,13 @@
 #import "DetailsViewController.h"
 
 @interface DetailsViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *profilePic;
+@property (weak, nonatomic) IBOutlet UILabel *accountName;
+@property (weak, nonatomic) IBOutlet UILabel *username;
+@property (weak, nonatomic) IBOutlet UILabel *tweetText;
+@property (weak, nonatomic) IBOutlet UILabel *tweetDate;
+@property (weak, nonatomic) IBOutlet UILabel *numRetweets;
+@property (weak, nonatomic) IBOutlet UILabel *numFavorites;
 
 @end
 
@@ -17,6 +24,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self showDetails];
+}
+
+-(void)showDetails {
+    self.accountName.text = self.tweet.user.name;
+    self.username.text = [NSString stringWithFormat:@"@%@", self.tweet.user.screenName];
+    self.tweetText.text = self.tweet.text;
+    self.tweetDate.text = self.tweet.createdAtDate;
+    self.numRetweets.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
+    self.numFavorites.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
+    
+    NSString *URLString = self.tweet.user.profilePicture;
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    
+    self.profilePic.image = [UIImage imageWithData:urlData];
 }
 
 /*
