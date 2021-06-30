@@ -198,6 +198,7 @@
                                             <outlet property="tweetAuthor" destination="V6T-aT-XpU" id="3Wo-0u-7k3"/>
                                             <outlet property="tweetDate" destination="Vny-Ob-PFg" id="b8K-MK-Ho5"/>
                                             <outlet property="tweetText" destination="2ue-07-zQd" id="09h-XV-yFo"/>
+                                            <segue destination="xBg-QU-Lbm" kind="show" identifier="DetailSegue" id="lcB-eV-SXS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -232,6 +233,28 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQh-hN-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1660" y="36.431784107946029"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="aKm-oT-kk6">
+            <objects>
+                <viewController id="xBg-QU-Lbm" customClass="DetailsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="07V-6Q-cgz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E8H-S1-3n4">
+                                <rect key="frame" x="16" y="73" width="78" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6bN-ZR-Ncd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4PV-nr-8Mf"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b5q-ex-2X5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1660" y="825.33733133433293"/>
         </scene>
         <!--Compose View Controller-->
         <scene sceneID="fJN-zc-xyc">

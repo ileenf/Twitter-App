@@ -13,6 +13,7 @@
 #import "TweetCell.h"
 #import "UIImage+AFNetworking.h"
 #import "ComposeViewController.h"
+#import "DetailsViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
@@ -81,7 +82,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
     
     Tweet *tweetObj = self.arrayOfTweets[indexPath.row];
     User *user = tweetObj.user;
@@ -99,6 +100,8 @@
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     
     cell.profilePic.image = [UIImage imageWithData:urlData];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (cell.tweet.favorited) {
         cell.likeCount.textColor = [[UIColor alloc] initWithRed:211.0/255.0 green:58.0/255.0 blue:79.0/255.0 alpha:1];
@@ -140,9 +143,17 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UINavigationController *navigationController = [segue destinationViewController];
+    
+    if ([[segue identifier] isEqualToString:@"DetailSegue"]) {
+        DetailsViewController *detailsViewController = [segue destinationViewController];
+        
+    } else {
+        
+        UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
         composeController.delegate = self;
+        
+    }
    
 }
 
