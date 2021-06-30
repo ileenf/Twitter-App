@@ -28,8 +28,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.tableView.rowHeight = 300;
-    
     [self loadTweets];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -89,7 +87,7 @@
     User *user = tweetObj.user;
     
     cell.tweetAuthor.text = user.name;
-    cell.screenName.text = user.screenName;
+    cell.screenName.text = [NSString stringWithFormat:@"@%@", user.screenName];
     cell.tweetDate.text = tweetObj.createdAtString;
     cell.tweetText.text = tweetObj.text;
     cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweetObj.retweetCount];
