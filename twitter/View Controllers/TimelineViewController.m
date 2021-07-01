@@ -19,7 +19,7 @@
 @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (assign, nonatomic) BOOL isMoreDataLoading;
+@property int tweetCount;
 
 @end
 
@@ -36,6 +36,8 @@
     
     [self.refreshControl addTarget:self action:@selector(loadTweets) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+    
+    self.tweetCount = 20;
     
     
 }
@@ -97,6 +99,28 @@
 - (void)didTweet:(Tweet *)tweet {
     [self.arrayOfTweets insertObject:tweet atIndex:0];
     [self.tableView reloadData];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row + 1 == [self.arrayOfTweets count]){
+        [self loadMoreData:@([self.arrayOfTweets count] + 20)];
+        NSLog(@"loading more data");
+    }
+}
+
+
+- (void)loadMoreData: (NSNumber *) offsetOfTweets{
+    
+    self.tweetCount += 20;
+    
+    [[APIManager shared] getHomeTimelineWithCompletion: @(self.tweetCount) completion: ^(NSArray *tweets, NSError *error) {
+        if (tweets){
+            self.tweetCount += 20;
+            self.arrayOfTweets = [[NSMutableArray alloc] initWithArray:tweets];
+            [self.tableView reloadData];
+        }
+    }];
+    
 }
 
 

@@ -16,6 +16,8 @@
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion;
 
+- (void)getHomeTimelineWithCompletion: (NSNumber *) numberOfTweets completion: (void(^)(NSArray *tweets, NSError *error))completion;
+
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion;
 
 - (void) postReplyWithText: (NSString *) text replyToUsername: (NSString *) replyToUsername replyID: (NSString *) replyToUserID completion: (void (^) (Tweet *, NSError *)) completion;
