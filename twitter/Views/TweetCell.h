@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *favoriteIcon;
 
 @property (strong, nonatomic) Tweet *tweet;
+- (void)setMovie:(Tweet *)tweetObj;
 
 
 

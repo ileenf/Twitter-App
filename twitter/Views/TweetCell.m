@@ -18,8 +18,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
     
 
     
@@ -119,6 +117,56 @@
 
 }
 
+
+- (void)setMovie:(Tweet *)tweetObj{
+    
+    User *user = tweetObj.user;
+
+    self.tweetAuthor.text = user.name;
+    self.screenName.text = [NSString stringWithFormat:@"@%@", user.screenName];
+    self.tweetDate.text = tweetObj.createdAtString;
+    self.tweetText.text = tweetObj.text;
+    self.retweetCount.text = [NSString stringWithFormat:@"%d", tweetObj.retweetCount];
+    self.likeCount.text = [NSString stringWithFormat:@"%d", tweetObj.favoriteCount];
+    self.tweet = tweetObj;
+
+    NSString *URLString = tweetObj.user.profilePicture;
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+
+    self.profilePic.image = [UIImage imageWithData:urlData];
+
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (self.tweet.favorited) {
+        self.likeCount.textColor = [[UIColor alloc] initWithRed:211.0/255.0 green:58.0/255.0 blue:79.0/255.0 alpha:1];
+
+    }
+    else {
+        self.likeCount.textColor = [[UIColor alloc] initWithRed:172.0/255.0 green:184.0/255.0 blue:193.0/255.0 alpha:1];
+    }
+
+    [self.favoriteIcon setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateSelected];
+    [self.favoriteIcon setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
+    self.favoriteIcon.selected = self.tweet.favorited;
+
+    if (self.tweet.retweeted) {
+        self.retweetCount.textColor = [[UIColor alloc] initWithRed:58.0/255.0 green:258.0/255.0 blue:79.0/255.0 alpha:1];
+
+    }
+    else {
+        self.retweetCount.textColor = [[UIColor alloc] initWithRed:172.0/255.0 green:184.0/255.0 blue:193.0/255.0 alpha:1];
+    }
+
+    [self.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateSelected];
+    [self.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
+    self.retweetIcon.selected = self.tweet.retweeted;
+    
+    
+    
+    
+    
+}
 
 
 @end
