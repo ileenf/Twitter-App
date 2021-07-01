@@ -112,7 +112,7 @@
 
 
     [self.retweetButton setSelected: self.tweet.retweeted];
-
+    
 }
 
 - (IBAction)tapFavorite:(id)sender {
@@ -156,6 +156,7 @@
 
 
     [self.favoriteButton setSelected: self.tweet.favorited];
+    
 
 }
 

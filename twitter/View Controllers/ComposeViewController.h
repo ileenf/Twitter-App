@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ComposeViewController : UIViewController
 @property (nonatomic, weak) id<ComposeViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSString *tweetType;
+@property (nonatomic, strong) NSString *replyID;
+@property (nonatomic, strong) NSString *replyUsername;
 
 
 

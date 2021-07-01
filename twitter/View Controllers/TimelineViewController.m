@@ -15,10 +15,11 @@
 #import "ComposeViewController.h"
 #import "DetailsViewController.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 
 @end
 
@@ -88,49 +89,6 @@
     
     [cell setMovie:tweetObj];
     
-//    User *user = tweetObj.user;
-//
-//    cell.tweetAuthor.text = user.name;
-//    cell.screenName.text = [NSString stringWithFormat:@"@%@", user.screenName];
-//    cell.tweetDate.text = tweetObj.createdAtString;
-//    cell.tweetText.text = tweetObj.text;
-//    cell.retweetCount.text = [NSString stringWithFormat:@"%d", tweetObj.retweetCount];
-//    cell.likeCount.text = [NSString stringWithFormat:@"%d", tweetObj.favoriteCount];
-//    cell.tweet = tweetObj;
-//
-//    NSString *URLString = tweetObj.user.profilePicture;
-//    NSURL *url = [NSURL URLWithString:URLString];
-//    NSData *urlData = [NSData dataWithContentsOfURL:url];
-//
-//    cell.profilePic.image = [UIImage imageWithData:urlData];
-//
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    
-//    [TweetCell setSelected:YES];
-
-//    if (cell.tweet.favorited) {
-//        cell.likeCount.textColor = [[UIColor alloc] initWithRed:211.0/255.0 green:58.0/255.0 blue:79.0/255.0 alpha:1];
-//
-//    }
-//    else {
-//        cell.likeCount.textColor = [[UIColor alloc] initWithRed:172.0/255.0 green:184.0/255.0 blue:193.0/255.0 alpha:1];
-//    }
-//
-//    [cell.favoriteIcon setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateSelected];
-//    [cell.favoriteIcon setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
-//    cell.favoriteIcon.selected = cell.tweet.favorited;
-//
-//    if (cell.tweet.retweeted) {
-//        cell.retweetCount.textColor = [[UIColor alloc] initWithRed:58.0/255.0 green:258.0/255.0 blue:79.0/255.0 alpha:1];
-//
-//    }
-//    else {
-//        cell.retweetCount.textColor = [[UIColor alloc] initWithRed:172.0/255.0 green:184.0/255.0 blue:193.0/255.0 alpha:1];
-//    }
-//
-//    [cell.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateSelected];
-//    [cell.retweetIcon setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
-//    cell.retweetIcon.selected = cell.tweet.retweeted;
 
     return cell;
 
@@ -140,7 +98,6 @@
     [self.arrayOfTweets insertObject:tweet atIndex:0];
     [self.tableView reloadData];
 }
-
 
 
 
@@ -158,16 +115,28 @@
         detailsViewController.tweet = tweet;
 
 
-    } else {
+    } else if ([segue.identifier isEqualToString: @"ReplySegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController *) navigationController.topViewController;
+        composeController.delegate = self;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell: [[sender superview] superview]];
+        Tweet *tweet = self.arrayOfTweets[indexPath.row];
+        
+        composeController.replyID = tweet.idStr;
+        composeController.replyUsername = tweet.user.screenName;
+        composeController.tweetType = @"reply";
+        
+    }
+    else if ([[segue identifier] isEqualToString:@"ComposeTweet"]){
 
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
         composeController.delegate = self;
+        composeController.tweetType = @"newTweet";
         
     }
    
 }
-
 
 
 @end
