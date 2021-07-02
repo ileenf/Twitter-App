@@ -1,8 +1,8 @@
-# Project 3 - *Name of App Here*
+# Project 3 - *Tweeter*
 
-**Name of your app** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
+**Tweeter** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **X** hours spent in total
+Time spent: **16-18** hours spent in total
 
 ## User Stories
 
@@ -31,10 +31,10 @@ The following **optional** features are implemented:
 - [ ] User can tap the profile image in any tweet to see another user's profile
   - Contains the user header view: picture and tagline
   - Contains a section with the users basic stats: # tweets, # following, # followers
-- [ ] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
-- [ ] When composing, you should have a countdown for the number of characters remaining for the tweet (out of 280) (**1 point**)
+- [x] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
+- [x] When composing, you should have a countdown for the number of characters remaining for the tweet (out of 140) (**1 point**)
 - [x] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
-- [ ] User can reply to any tweet, and replies should be prefixed with the username and the reply_id should be set when posting the tweet (**2 points**)
+- [x] User can reply to any tweet, and replies should be prefixed with the username and the reply_id should be set when posting the tweet (**2 points**)
 - [ ] User sees embedded images in tweet if available
 - [ ] User can switch between timeline, mentions, or profile view through a tab bar (**3 points**)
 - [ ] Profile Page: pulling down the profile page should blur and resize the header image. (**4 points**)
@@ -42,12 +42,15 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Retweet icon is green when user has retweeted, grey otherwise
+- [x] Favorite icon is red when user has liked, grey otherwise
+- [x] Compose tweet border changed from blue to red when 140 char limit is reached, prevents further typing
+- [x] Blue nav bar to represent Twitter's UI
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Having the retweet and favorites count automatically refresh coming from the details view page
+2. Being able to view user profiles
 
 ## Video Walkthrough
 
@@ -61,15 +64,24 @@ GIF created with [Kap](https://getkap.co/).
 
 Describe any challenges encountered while building the app.
 
+- Added retweet and favorite icons as images instead of buttons, and therefore couldn't change the default and selected pictures
+- Getting infinite scroll to continuously load
+- Tapping favorite button logged error (because can't favorite a tweet already favorited)
+- Getting tweet is nil (because didn't assign tweet propety to tweet object)
+- Calling the APIManager functions (difficult syntax)
+
 ## Credits
 
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
+- [DateTools] (https://github.com/MatthewYork/DateTools) - dates and times library
+- [BDBOAuth1Manager] - OAuth 1.0a library for AFNetworking 2.x
+- Twitter API 
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2021] [Ileen Fan]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
