@@ -56,9 +56,11 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+https://imgur.com/iSNXUtC.gif
 
-GIF created with [Kap](https://getkap.co/).
+https://imgur.com/Bv4nVhW.gif
+
+GIF created with (ezgif.com/video-to-gif).
 
 ## Notes
 
@@ -75,7 +77,7 @@ Describe any challenges encountered while building the app.
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
-- [DateTools] (https://github.com/MatthewYork/DateTools) - dates and times library
+- [DateTools](https://github.com/MatthewYork/DateTools) - dates and times library
 - [BDBOAuth1Manager] - OAuth 1.0a library for AFNetworking 2.x
 - Twitter API 
 
