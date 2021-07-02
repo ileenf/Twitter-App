@@ -62,7 +62,7 @@
     if (self.tweet.retweeted == NO){
         self.tweet.retweeted = YES;
         self.tweet.retweetCount += 1;
-        self.retweetCount.textColor = [[UIColor alloc] initWithRed:211.0/255.0 green:258.0/255.0 blue:79.0/255.0 alpha:1];
+        self.retweetCount.textColor = [[UIColor alloc] initWithRed:11.0/255.0 green:228.0/255.0 blue:79.0/255.0 alpha:1];
             
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
             
