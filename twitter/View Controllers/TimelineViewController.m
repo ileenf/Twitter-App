@@ -59,18 +59,12 @@
                 
                 [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
                     if (tweets) {
-                        NSLog(@"😎😎😎 Successfully loaded home timeline");
                         self.arrayOfTweets = tweets;
                         [self.tableView reloadData];
                         
-                        //NSLog(@"%@", self.arrayOfTweets);
-                //            for (NSDictionary *dictionary in tweets) {
-                //                NSString *text = dictionary[@"text"];
-                //                NSLog(@"%@", text);
-                //            }
-                    } else {
-                        NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+                    
                     }
+                    
                     [self.refreshControl endRefreshing];
                     
                 }];
@@ -99,12 +93,13 @@
 - (void)didTweet:(Tweet *)tweet {
     [self.arrayOfTweets insertObject:tweet atIndex:0];
     [self.tableView reloadData];
+    
+    
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row + 1 == [self.arrayOfTweets count]){
         [self loadMoreData:@([self.arrayOfTweets count] + 20)];
-        NSLog(@"loading more data");
     }
 }
 

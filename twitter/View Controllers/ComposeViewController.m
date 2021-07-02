@@ -47,20 +47,14 @@
                     [self.delegate didTweet:tweet];
                     [self dismissViewControllerAnimated:true completion:nil];
                     
-                }else{
-                    //error
-                    //Show an alert
-                    NSLog(@"Failed to post tweet");
                 }
             }];
             
         } else if ([self.tweetType isEqualToString: @"reply"]){
             
             [[APIManager shared] postReplyWithText:self.tweetView.text replyToUsername:self.replyUsername replyID:self.replyID completion:^(Tweet *tweet, NSError *error) {
-                if (error != nil) {
-                    NSLog(@"%@", error.localizedDescription);
-                } else {
-                    NSLog(@"IT WORKS");
+                if (error == nil) {
+                
                     [self.delegate didTweet:tweet];
                     [self dismissViewControllerAnimated:true completion:nil];
                 }

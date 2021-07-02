@@ -26,19 +26,13 @@
 
 // Did Tap Favorite
 - (IBAction)didTapFavorite:(id)sender {
-    // TODO: Update the local tweet model
     if (self.tweet.favorited == NO){
         self.tweet.favorited = YES;
         self.tweet.favoriteCount += 1;
         self.likeCount.textColor = [[UIColor alloc] initWithRed:211.0/255.0 green:58.0/255.0 blue:79.0/255.0 alpha:1];
             
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                 NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-            }
-            else{
-                NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-            }
+           
         }];
     }
     
@@ -48,12 +42,7 @@
         self.likeCount.textColor = [[UIColor alloc] initWithRed:172.0/255.0 green:184.0/255.0 blue:193.0/255.0 alpha:1];
         
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                 NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
-            }
-            else{
-                NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
-            }
+           
         }];
 
         
@@ -61,15 +50,10 @@
     
     self.likeCount.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
     
-    // TODO: Update cell UI
- 
-
 
     [self.favoriteIcon setSelected: self.tweet.favorited];
 
-    
-    // TODO: Send a POST request to the POST favorites/create endpoint
-    
+        
 }
 
 //Retweet
@@ -81,12 +65,7 @@
         self.retweetCount.textColor = [[UIColor alloc] initWithRed:211.0/255.0 green:258.0/255.0 blue:79.0/255.0 alpha:1];
             
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                 NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-            }
-            else{
-                NSLog(@"Successfully retweetd the following Tweet: %@", tweet.text);
-            }
+            
         }];
     }
     
@@ -96,12 +75,7 @@
         self.retweetCount.textColor = [[UIColor alloc] initWithRed:172.0/255.0 green:184.0/255.0 blue:193.0/255.0 alpha:1];
         
         [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-            if(error){
-                 NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
-            }
-            else{
-                NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-            }
+           
         }];
 
         
