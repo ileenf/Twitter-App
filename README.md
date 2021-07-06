@@ -56,6 +56,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
+https://imgur.com/StfINcC
+
 https://imgur.com/iSNXUtC.gif
 
 https://imgur.com/Bv4nVhW.gif
